@@ -73,8 +73,8 @@ fun main() {
     val javalin = Javalin.create { config ->
         config.bundledPlugins.enableCors { cors ->
             cors.addRule {
+                it.allowHost("http://localhost:5173")
                 it.allowHost(allow)
-                it.allowHost("localhost:5173")
             }
         }
     }.start(8000)
@@ -82,10 +82,10 @@ fun main() {
     javalin.get("/api/products") { ctx ->
         ctx.json(joined)
     }
+
     javalin.get("/api/products/1") { ctx ->
         ctx.json(joined.first())
     }
 
-    val host = "fake-store-api-production-26f6.up.railway.app"
-    println("Server running on ${host}/api/products")
+    println("Server running on 8000/api/products")
 }
