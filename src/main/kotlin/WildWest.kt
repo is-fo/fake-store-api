@@ -69,10 +69,12 @@ fun main() {
     /**
      * https://javalin.io/plugins/cors#getting-started
      */
+    val allow = "vite-react-webstore.vercel.app"
     val javalin = Javalin.create { config ->
         config.bundledPlugins.enableCors { cors ->
             cors.addRule {
-                it.anyHost()
+                it.allowHost(allow)
+                it.allowHost("localhost:5173")
             }
         }
     }.start(8000)
@@ -84,5 +86,6 @@ fun main() {
         ctx.json(joined.first())
     }
 
-    println("Server running on http://localhost:8000/api/products")
+    val host = "fake-store-api-production-26f6.up.railway.app"
+    println("Server running on ${host}/api/products")
 }
